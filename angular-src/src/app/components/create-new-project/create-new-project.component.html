@@ -1,0 +1,28 @@
+<div class="card">
+    <div class="card-block">
+        <h4 class="card-header">Add new project</h4>
+        <div class="card-body">
+          <form (submit)="onNewProjectSubmit()"> 
+              <div class="">
+                <div class="form-group">
+                  <label>Project name</label>
+                  <input type="text" class="form-control" [(ngModel)]="projectName" name="projectName">
+                </div>
+              </div>
+              <div class="">
+                  <div class="form-group">
+                      <label>Description</label>
+                      <input type="textbox" class="form-control" [(ngModel)]="description" name="description">
+                  </div>
+                </div>
+                <div class="">
+                  <div class="form-group">
+                      <label>Git repo</label>
+                      <input type="text" class="form-control" [(ngModel)]="gitRepo" name="gitRepo">
+                  </div>
+                </div>
+                  <input type="submit" class="btn btn-primary" value="Create new project">
+              </form>
+        </div>
+      </div>
+  </div>

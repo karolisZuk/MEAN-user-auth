@@ -1,0 +1,13 @@
+.card-footer {
+    margin-bottom: 2px;
+    border-bottom: 1px solid lightgray;
+}
+
+.card {
+    width:600px !important;
+}
+
+.card-footer {
+    font-size: 20px;
+    color: rgb(202,12,15);
+}

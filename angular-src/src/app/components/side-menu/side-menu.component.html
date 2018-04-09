@@ -1,0 +1,7 @@
+<div id="sidebar-wrapper">
+    <ul class="sidebar-nav list-group" *ngIf="authService.loggedIn()">
+        <li class="list-group-item nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"><a href="#" class="nav-link" [routerLink]="['/dashboard/overview']">Overview <i class="fas fa-tachometer-alt"></i></a></li>
+        <li class="list-group-item nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"><a href="#" class="nav-link">Shortcuts</a></li>
+        <li class="list-group-item nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"><a href="#" class="nav-link">Other stuff</a></li> 
+    </ul>
+</div>

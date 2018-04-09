@@ -18,15 +18,16 @@ router.post('/register', (req, res, next) => {
             res.json({success:false, msg:'Something went wrong. Try again later.'});
         }else {
             res.json({success:true, msg:'User were registered successfully. You can now login.'});
+            console.log(`${new Date().toLocaleString() } user, named ${req.body.username} just registered.`);
         }
-    });
+    }); 
 });
 
 router.post('/authenticate', (req, res, next) => {
-    console.log('AUTH username: ' + req.body.username);
+    console.log(`${new Date().toLocaleString() } User ${req.body.username} just logged in.`);
     
-    const username=req.body.username;
-    const password=req.body.password;
+    const username = req.body.username;
+    const password = req.body.password;
 
     User.getUserByUsername(username, (err, user) => {
         if(err) throw err;
@@ -57,7 +58,7 @@ router.post('/authenticate', (req, res, next) => {
 });
 
 router.get('/profile', passport.authenticate('jwt', { session:false }), (req, res, next) => {
-    //delete this later, it sends back the pasword!!!!!!!
+    //delete this later, it sends back the password!!!!!!!
     res.json({user: req.user});
 });
 

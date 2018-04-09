@@ -5,6 +5,7 @@ const cors = require('cors');
 const passport = require('passport');
 const mongoose = require('mongoose');
 const users = require('./routes/users');
+const projects = require('./routes/dashboard');
 const config = require('./config/database');
 
 //mongo db set up
@@ -22,12 +23,17 @@ app.use(passport.session());
 require('./config/passport')(passport);
 
 app.use('/users', users);
+app.use('/dashboard', projects);
 
 const port = 3000;
 
 app.get('/', (req, res)=>{
     console.log('someone is knocking.');
     res.send('Invalid route');
+});
+
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public/index.html'));
 });
 
 app.listen(port, () => {

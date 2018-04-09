@@ -14,13 +14,20 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { ValidateService } from './services/validate.service';
 import { FlashMessagesModule } from 'angular2-flash-messages';
 import { AuthService } from './services/auth.service';
+import { AuthGuard } from './guards/auth.guard';
+import { SideMenuComponent } from './components/side-menu/side-menu.component';
+import { CreateNewProjectComponent } from './components/create-new-project/create-new-project.component';
+import { OverviewComponent } from './components/overview/overview.component';
+import { ProjectService } from './services/project.service';
+import { DisplayUserProjectsComponent } from './components/display-user-projects/display-user-projects.component';
 
 const appRoutes: Routes = [
   {path: '',component: HomeComponent},
   {path: 'register',component: RegisterComponent},
   {path: 'login',component: LoginComponent},
-  {path: 'dashboard',component: DashboardComponent},
-  {path: 'profile',component: ProfileComponent}
+  {path: 'dashboard',component: DashboardComponent, canActivate:[AuthGuard]},
+  {path: 'profile',component: ProfileComponent, canActivate:[AuthGuard]},
+  {path: 'dashboard/overview',component: OverviewComponent}
 ]
 
 @NgModule({
@@ -32,7 +39,11 @@ const appRoutes: Routes = [
     RegisterComponent,
     HomeComponent,
     DashboardComponent,
-    ProfileComponent
+    ProfileComponent,
+    SideMenuComponent,
+    CreateNewProjectComponent,
+    OverviewComponent,
+    DisplayUserProjectsComponent
   ],
   //providers
   imports: [
@@ -43,7 +54,7 @@ const appRoutes: Routes = [
     FlashMessagesModule.forRoot()
   ],
   //services
-  providers: [ValidateService, AuthService],
+  providers: [ValidateService, AuthService, AuthGuard, ProjectService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
