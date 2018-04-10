@@ -7,3 +7,19 @@
 .clickable{
     cursor:pointer;
 }
+
+.alert-success, .alert-danger {
+    position:absolute;
+    z-index: 999;
+    right:0;
+    top:70px;
+    width:300px;
+}
+
+.alert-success {
+    background-color:rgba(29, 158, 137, 0.5);
+}
+
+.alert-danger {
+    background-color:rgba(158, 66, 29, 0.5);
+}

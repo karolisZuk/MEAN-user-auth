@@ -28,6 +28,16 @@ export class ProjectService {
         .map(res => res.json());
   }
 
+  deleteProject(projectId){
+    const query = {projectId:projectId};
+    let headers = new Headers();
+    this.loadToken();
+    headers.append('Content-type', 'application/json');
+    headers.append('Authorization', this.authToken);
+      return this.http.post('http://localhost:3000/dashboard/overview/delete/project', query, {headers:headers})
+        .map(res => res.json());
+  }
+
 loadToken(){
   const token = localStorage.getItem('id_token');
   this.authToken = token;

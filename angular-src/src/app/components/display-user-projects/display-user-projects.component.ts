@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener, HostBinding } from '@angular/core';
 import { ProjectService } from '../../services/project.service';
 import { FlashMessagesService } from 'angular2-flash-messages';
 
@@ -14,11 +14,26 @@ export class DisplayUserProjectsComponent implements OnInit {
     private flashMessage: FlashMessagesService
   ) { }
 
-  deleteProject(){
-    console.log('deleting');
+  deleteProject(id){
+    this.projectService.deleteProject(id).subscribe(res => {
+      if(res.success){
+      this.flashMessage.show(res.msg, {
+        cssClass:'alert-success alert text-center',
+        timeout: 5000
+      });
+      this.getAllProjects();}
+    }); 
   }
 
   ngOnInit() {
+    this.getAllProjects();
+  }
+//shit sucks, but it kind of works
+  public update(){
+    this.getAllProjects();
+  }
+
+  getAllProjects (){
     this.projectService.getAllUsersProjects().subscribe(projects => {
       this.projects = projects.projects;
     },

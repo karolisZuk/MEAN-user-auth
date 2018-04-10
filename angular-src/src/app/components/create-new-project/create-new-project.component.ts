@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input, HostListener } from '@angular/core';
 import { ProjectService } from '../../services/project.service';
 import { Router } from '@angular/router';
 import { FlashMessagesService } from 'angular2-flash-messages';
+import { DisplayUserProjectsComponent } from '../display-user-projects/display-user-projects.component';
 
 @Component({
   selector: 'app-create-new-project',
@@ -13,6 +14,8 @@ export class CreateNewProjectComponent implements OnInit {
   description: String;
   owner: any;
   gitRepo: String;
+
+  @Input() projectList: DisplayUserProjectsComponent;
 
   constructor(
     private projectService: ProjectService,
@@ -39,7 +42,7 @@ export class CreateNewProjectComponent implements OnInit {
        this.router.navigate(['dashboard/overview']);
       }
     });
- 
+    DisplayUserProjectsComponent.update();
+    this.projectService.getAllUsersProjects();
    }
-
 }

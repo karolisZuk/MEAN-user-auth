@@ -21,6 +21,10 @@ const ProjectSchema = mongoose.Schema({
 
 const Project = module.exports = mongoose.model('Project', ProjectSchema);
 
+module.exports.getProjectOwnerByProjectId = (id, callback) => {
+    Project.findById(id, 'owner', callback);
+}
+
 module.exports.getProjectByOwner = (id, callback) => {
    const query = {owner:id};
    Project.find(query, callback);
@@ -28,4 +32,4 @@ module.exports.getProjectByOwner = (id, callback) => {
 
 module.exports.addProject = (newProject, callback) => {
     newProject.save(callback);
-    }; 
+    };
