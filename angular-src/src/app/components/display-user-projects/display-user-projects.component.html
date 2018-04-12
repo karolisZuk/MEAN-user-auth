@@ -2,13 +2,13 @@
       <div class="card-block">
           <h4 class="card-header">Your current projects</h4>
           <div class="card-body">
-                  <div *ngFor="let project of projects; let i = index" class="card-block bg-light">
-                      <h5 class="card-header">{{project.projectName}}</h5>
+                  <div *ngFor="let project of projects" class="card-block bg-light">
+                      <h5 class="card-header">{{project.projectName}} <small class="red-text">({{project.createdAt.split("T")[0]}})</small></h5>
                       <div class="card-body">
                           {{project.description}}
                       </div>
                       <div class="card-footer">
-                        <a class="card-link clickable"><i class="fas fa-hourglass-start"></i></a>
+                        <a class="card-link clickable"><i class="fas fa-play-circle"></i></a>
                         <a class="card-link clickable"><i class="fas fa-search"></i></a>
                         <a class="card-link clickable  float-right" (click)="deleteProject(project._id)"><i class="fas fa-trash-alt"></i></a>
                       </div>

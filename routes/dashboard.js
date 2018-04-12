@@ -49,7 +49,6 @@ router.post('/overview/delete/project', passport.authenticate('jwt', { session:f
                     return res.json({success: false, msg:'Error, while deleting'});
                 }
                 if (response.ok){
-                    console.log(res);
                     return res.json({success: true, msg:'Project deleted.'});
                 }
             });

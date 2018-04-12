@@ -2,7 +2,7 @@
 <p>Overview of your projects</p>
 <div class="container">
     <div class="card-columns d-flex justify-content-center">
-        <app-create-new-project></app-create-new-project>
-        <app-display-user-projects></app-display-user-projects>
+        <app-create-new-project (addNewProject)="com1.ngOnInit()"></app-create-new-project>
+        <app-display-user-projects #com1></app-display-user-projects>
     </div> 
 </div>

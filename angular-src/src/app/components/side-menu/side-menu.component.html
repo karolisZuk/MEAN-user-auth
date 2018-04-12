@@ -1,7 +1,7 @@
 <div id="sidebar-wrapper">
     <ul class="sidebar-nav list-group" *ngIf="authService.loggedIn()">
-        <li class="list-group-item nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"><a href="#" class="nav-link" [routerLink]="['/dashboard/overview']">Overview <i class="fas fa-tachometer-alt"></i></a></li>
-        <li class="list-group-item nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"><a href="#" class="nav-link">Shortcuts</a></li>
-        <li class="list-group-item nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"><a href="#" class="nav-link">Other stuff</a></li> 
+        <li class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"><a href="#" class="nav-link text-center" [routerLink]="['/dashboard/overview']"><i class="fas fa-tachometer-alt"></i><span>Overview</span></a></li>
+        <li class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"><a href="#" class="nav-link text-center" [routerLink]="['/dashboard/work']"><i class="fas fa-play-circle"></i><span>Work</span></a></li>
+        <li class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"><a href="#" class="nav-link text-center"><i class="fas fa-address-book"></i><span>Social</span></a></li> 
     </ul>
 </div>

@@ -10,7 +10,7 @@ export class ProjectService {
 
   constructor(private http: Http) { }
 
-  registerProject(project){ 
+  registerProject(project){  
     let headers = new Headers();
     this.loadToken();
     headers.append('Content-type', 'application/json');

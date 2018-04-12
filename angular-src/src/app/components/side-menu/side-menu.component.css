@@ -4,6 +4,7 @@
     left:0;
     top:40%;
     z-index: 999;
+    border:1px solid lightgrey;
 }
 
 .sidebar-nav .active{
@@ -12,4 +13,8 @@ background: white;
 
 svg:not(:root).svg-inline--fa {
     font-size: 30px;
+}
+
+span {
+    display:block;
 }

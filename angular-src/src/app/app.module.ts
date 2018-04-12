@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
-
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { LoginComponent } from './components/login/login.component';
@@ -20,6 +19,7 @@ import { CreateNewProjectComponent } from './components/create-new-project/creat
 import { OverviewComponent } from './components/overview/overview.component';
 import { ProjectService } from './services/project.service';
 import { DisplayUserProjectsComponent } from './components/display-user-projects/display-user-projects.component';
+import { WorkComponent } from './components/work/work.component';
 
 const appRoutes: Routes = [
   {path: '',component: HomeComponent},
@@ -27,7 +27,9 @@ const appRoutes: Routes = [
   {path: 'login',component: LoginComponent},
   {path: 'dashboard',component: DashboardComponent, canActivate:[AuthGuard]},
   {path: 'profile',component: ProfileComponent, canActivate:[AuthGuard]},
-  {path: 'dashboard/overview',component: OverviewComponent}
+  {path: 'dashboard/overview',component: OverviewComponent},
+  {path: 'dashboard/work',component: WorkComponent}
+
 ]
 
 @NgModule({
@@ -43,8 +45,9 @@ const appRoutes: Routes = [
     SideMenuComponent,
     CreateNewProjectComponent,
     OverviewComponent,
-    DisplayUserProjectsComponent
-  ],
+    DisplayUserProjectsComponent,
+    WorkComponent
+    ],
   //providers
   imports: [
     BrowserModule,

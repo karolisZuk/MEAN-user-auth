@@ -14,8 +14,18 @@ const ProjectSchema = mongoose.Schema({
         type:String,
         required:true
     },
-    gitRepo:{
+    website:{
         type:String
+    },
+    createdAt:{
+       type:Date,
+       required:true,
+       default: Date.now
+    },
+
+    tasks:{
+        type: Object,
+        default:{}
     }
 });
 

@@ -16,10 +16,8 @@
     width:300px;
 }
 
-.alert-success {
-    background-color:rgba(29, 158, 137, 0.5);
-}
+.alert-success {background-color:rgba(29, 158, 137, 0.5);}
 
-.alert-danger {
-    background-color:rgba(158, 66, 29, 0.5);
-}
+.alert-danger {background-color:rgba(158, 66, 29, 0.5);}
+
+.red-text {color:rgb(158, 66, 29);}

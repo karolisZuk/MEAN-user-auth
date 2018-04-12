@@ -7,21 +7,24 @@ import { DisplayUserProjectsComponent } from '../display-user-projects/display-u
 @Component({
   selector: 'app-create-new-project',
   templateUrl: './create-new-project.component.html',
-  styleUrls: ['./create-new-project.component.css']
+  styleUrls: ['./create-new-project.component.css'],
+  providers: [DisplayUserProjectsComponent]
 })
 export class CreateNewProjectComponent implements OnInit {
+  @Output() addNewProject = new EventEmitter();
+
   projectName: String;
   description: String;
   owner: any;
-  gitRepo: String;
-
-  @Input() projectList: DisplayUserProjectsComponent;
+  website: String;
 
   constructor(
     private projectService: ProjectService,
     private router: Router,
-    private flashMessage: FlashMessagesService
-  ) { }
+    private flashMessage: FlashMessagesService,
+    private displayProjectsComponent: DisplayUserProjectsComponent
+  ) { 
+  }
 
   ngOnInit() {
   }
@@ -30,19 +33,17 @@ export class CreateNewProjectComponent implements OnInit {
     const project = {
       projectName: this.projectName,
       description: this.description,
-      gitRepo: this.gitRepo
+      website: this.website
     }
     
     this.projectService.registerProject(project).subscribe(data => {
       if(data.success){
-         this.flashMessage.show(data.msg, {cssClass:'alert alert-success text-center', timeout: 5000});
-         this.router.navigate(['dashboard/overview']);
+         this.flashMessage.show(data.msg, {cssClass:'alert alert-success text-center', timeout: 3000});
       } else {
-       this.flashMessage.show(data.msg, {cssClass:'alert alert-danger text-center', timeout: 5000});
+       this.flashMessage.show(data.msg, {cssClass:'alert alert-danger text-center', timeout: 3000});
        this.router.navigate(['dashboard/overview']);
       }
     });
-    DisplayUserProjectsComponent.update();
-    this.projectService.getAllUsersProjects();
+    this.addNewProject.emit(null);
    }
 }

@@ -1,0 +1,9 @@
+.tasks-table {
+    border:1px solid lightgrey;
+    margin-top:30px;
+    border-radius:20px;
+}
+
+.task-list {
+    margin-bottom: 20px;
+}
