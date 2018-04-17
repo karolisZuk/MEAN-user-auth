@@ -6,4 +6,14 @@
 
 .task-list {
     margin-bottom: 20px;
+    min-height: 160px;
+}
+
+.add-task-bar {
+    margin-top:50px;
+}
+
+.list-group-item{
+    margin-top:20px;
+    min-height:150px;
 }

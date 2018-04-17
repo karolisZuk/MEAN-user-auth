@@ -1,30 +1,83 @@
 <h2 class="page-heaader">Work</h2>
 <p>Select project and start working</p>
-<div class="container">
+<h4 *ngIf="selectedProject" class="col-md">{{selectedProject.projectName}}</h4>
 
-  <div class="row col-md-4">
-    <div class="dropdown col-sm-6">
+  <div class="row  col-md-12">
+    <div class="dropdown col-md-2">
         <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Select a project
         </button>
-        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-          <a class="dropdown-item clickable" (click)="selectProject(project)" *ngFor="let project of projects; let i = index">{{project.projectName}}</a>
-        </div>
-      </div>
-    <h4 *ngIf="selectedProject" class="col-sm-6">{{selectedProject.projectName}}</h4>
-</div>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <a class="dropdown-item clickable" (click)="selectProject(project)" *ngFor="let project of projects; let i = index">{{project.projectName}}</a>
+          </div>
+    </div>
+      <form (submit)="onNewTaskSubmit()" class=" col-md-10 row">
+          <div class="col-md-3">
+              <input type="text" class="form-control" [(ngModel)]="taskTitle" name="taskTitle" placeholder="Task Title">
+          </div>
+          <div class="col-md-3">
+              <input type="text" class="form-control" [(ngModel)]="taskDescription" name="taskDescription" placeholder="Task Description">
+          </div>
+          <div class="col-md-3">
+              <div class="form-group">
+                  <select class="form-control" [(ngModel)]="taskPriority" name="taskPriority">
+                    <option value="" selected disabled>Select priority</option>
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option> 
+                  </select>
+                </div>
+          </div>
+          <div class="col-md-1">
+              <button class="btn btn-primary" type="submit">Submit new task</button>
+          </div>
+      </form>
+    </div>
 
 <div class="row tasks-table">
   <div class="col-md-4">
     <h4 class="text-center">Pending tasks</h4>
-      <ul class="list-group task-list">
-        <li class="list-group-item">Do stuff</li>
+      <ul class="list-group task-list"> 
+        <li class="list-group-item" *ngFor="let task of pendingTasks" ng-if="pendingTasks">
+          <div class="row">
+            <div class="col-md-9">
+                <h4> {{task.taskPriority}} </h4>{{task.taskName}} <br><small>{{task.taskDescription}}</small>
+            </div>
+            <div class="col-md-3">
+                <a (click)="deleteTask(task._id)"><i class="fas fa-trash-alt"></i></a>
+              </div>
+          </div>
+        </li>
       </ul>
   </div>
   <div class="col-md-4">
       <h4 class="text-center">Tasks in progress</h4>
+      <li class="list-group-item" ng-if="inProgressTasks" *ngFor="let task of inProgressTasks">
+          <div class="row">
+              <div class="col-md-9">
+                  <h4> {{task.taskPriority}} </h4>{{task.taskName}} <br><small>{{task.taskDescription}}</small>
+              </div>
+              <div class="col-md-3">
+                  <a (click)="deleteTask(task._id)"><i class="fas fa-trash-alt"></i></a>
+                </div>
+            </div>
+      </li>
     </div>
     <div class="col-md-4">
         <h4 class="text-center">Finished tasks</h4>
+        <li class="list-group-item" ng-if="finishedTasks" *ngFor="let task of finishedTasks">
+            <div class="row">
+                <div class="col-md-9">
+                    <h4> {{task.taskPriority}} </h4>{{task.taskName}} <br><small>{{task.taskDescription}}</small>
+                </div>
+                <div class="col-md-3">
+                    <a (click)="deleteTask(task._id)"><i class="fas fa-trash-alt"></i></a>
+                  </div>
+              </div>
+        </li>
       </div>
 </div>
+
+
+

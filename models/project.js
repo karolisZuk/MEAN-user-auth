@@ -25,7 +25,7 @@ const ProjectSchema = mongoose.Schema({
 
     tasks:{
         type: Object,
-        default:{}
+        default:[]
     }
 });
 

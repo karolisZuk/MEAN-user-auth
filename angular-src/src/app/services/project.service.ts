@@ -13,10 +13,19 @@ export class ProjectService {
   registerProject(project){  
     let headers = new Headers();
     this.loadToken();
-    headers.append('Content-type', 'application/json');
+    headers.append('Content-type', 'application/json'); 
     headers.append('Authorization', this.authToken);
     return this.http.post('http://localhost:3000/dashboard/overview/create-new-project', project, {headers:headers})
     .map(res => res.json());
+}
+
+registerNewTask(task){
+  let headers = new Headers();
+  this.loadToken();
+  headers.append('Content-type', 'application/json');
+  headers.append('Authorization', this.authToken);
+  return this.http.post('http://localhost:3000/dashboard/work/create-new-task', task, {headers:headers})
+  .map(res => res.json());
 }
 
   getAllUsersProjects(){
@@ -36,6 +45,26 @@ export class ProjectService {
     headers.append('Authorization', this.authToken);
       return this.http.post('http://localhost:3000/dashboard/overview/delete/project', query, {headers:headers})
         .map(res => res.json());
+  }
+
+  deleteTask(taskId){
+    const query = {taskId:taskId};
+    let headers = new Headers();
+    this.loadToken();
+    headers.append('Content-type', 'application/json');
+    headers.append('Authorization', this.authToken);
+      return this.http.post('http://localhost:3000/dashboard/work/delete/task', query, {headers:headers})
+        .map(res => res.json());
+  }
+
+  getAllProjectTasks(projectId){
+     let headers = new Headers();
+     this.loadToken();
+     const query = {projectId:projectId};
+     headers.append('Content-type', 'application/json');
+     headers.append('Authorization', this.authToken);
+     return this.http.post('http://localhost:3000/dashboard/overview/work/get/all/tasks', query, { headers:headers })
+     .map(res => res.json());
   }
 
 loadToken(){

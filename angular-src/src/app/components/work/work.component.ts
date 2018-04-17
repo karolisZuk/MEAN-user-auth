@@ -10,6 +10,14 @@ import { FlashMessagesService } from 'angular2-flash-messages';
 export class WorkComponent implements OnInit {
   private projects: any;
   private selectedProject: any;
+  private tasks:any;
+  private pendingTasks:any;
+  private inProgressTasks: any;
+  private finishedTasks:any;
+
+  taskTitle: String;
+  taskDescription: String;
+  taskPriority: Number;
 
   constructor(
     private projectService: ProjectService,
@@ -22,7 +30,58 @@ export class WorkComponent implements OnInit {
 
   selectProject(project){
     this.selectedProject = project;
-    console.log(this.selectedProject);
+    this.getAllTasks(this.selectedProject._id);
+  }
+
+  getAllTasks(projectId){
+    this.projectService.getAllProjectTasks(projectId).subscribe(data => {
+      this.tasks=[];
+      this.tasks = data.tasks;
+      this.pendingTasks = this.filterTasksByStatus(this.tasks,'Pending');
+      this.inProgressTasks = this.filterTasksByStatus(this.tasks,'inProgress');
+      this.finishedTasks = this.filterTasksByStatus(this.tasks,'finished');
+      return true;
+    });
+  }
+
+  onNewTaskSubmit(){
+    const task = {
+      taskTitle: this.taskTitle,
+      taskDescription: this.taskDescription,
+      taskPriority: this.taskPriority,
+      taskProjectCode:this.selectedProject._id
+    }
+    this.projectService.registerNewTask(task).subscribe(data => {
+      if(data.success){
+        this.flashMessage.show(data.msg, {cssClass:'alert alert-success text-center', timeout: 3000});
+        this.getAllTasks(this.selectedProject._id);
+     } else {
+      this.flashMessage.show(data.msg, {cssClass:'alert alert-danger text-center', timeout: 3000});
+     }
+   });
+  }
+
+  deleteTask(taskCode){
+    this.projectService.deleteTask(taskCode).subscribe(data => {
+      if(data.success){
+        this.flashMessage.show(data.msg, {cssClass:'alert alert-success text-center', timeout: 3000});
+        this.getAllTasks(this.selectedProject._id);
+     } else {
+      this.flashMessage.show(data.msg, {cssClass:'alert alert-danger text-center', timeout: 3000});
+      this.getAllTasks(this.selectedProject._id);
+     }
+    });
+  }
+
+  filterTasksByStatus(tasks, status){
+    let arr=[];
+    for(let i=0; i<tasks.length; i++){
+      if(tasks[i].taskStatus === status)
+      {
+        arr.push(tasks[i]);
+      }
+    }
+    return arr;
   }
 
   getAllProjects (){ 
