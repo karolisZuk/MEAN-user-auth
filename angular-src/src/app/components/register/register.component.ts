@@ -14,6 +14,9 @@ export class RegisterComponent implements OnInit {
   username: String;
   email: String;
   password: String;
+  repeatPassword:String;
+  errors: any = {
+  };
 
   constructor(
     private validateService: ValidateService, 
@@ -25,21 +28,42 @@ export class RegisterComponent implements OnInit {
   ngOnInit() {
   }
 
-  onRegisterSubmit(){
+  validateName(val){
+    this.errors = this.validateService.validateName(val);
+  }
+
+  validateUsername(val){
+    this.errors = this.validateService.validateUsername(val);
+  }
+
+  validateEmail(val){
+    this.errors = this.validateService.validateEmail(val);
+  }
+
+  validatePassword(val){
+    if(!this.validateService.validatePassword(val)){
+      this.errors.password = 'The password should be atleast 8 symbols long and contain one number';
+    } else {
+      this.errors.password = '';
+    }
+  }
+
+  validateRepeatPassword(password, repeatPassword) {
+    if(password === repeatPassword){
+      this.errors.repeatPassword = '';
+    }else {
+      this.errors.repeatPassword = 'Repeat password does not match'
+    }
+  }
+
+  onRegisterSubmit(){ 
     const user = {
       name: this.name,
       username: this.username,
       email: this.email,
       password: this.password
     }
-  if(!this.validateService.validateRegister(user)){
-    this.flashMessage.show('Please fill in all the fields', {cssClass:'alert alert-danger text-center', timeout:3000});
-    return false;
-    }
-  if(!this.validateService.validateEmail(user.email)){
-    this.flashMessage.show('Please use a valid email', {cssClass:'alert alert-danger text-center', timeout:3000});
-      return false;
-      }
+  
     this.authService.registerUser(user).subscribe( data => {
       if(data.success){
         this.flashMessage.show(data.msg, {cssClass:'alert alert-success text-center', timeout:3000});

@@ -52,7 +52,23 @@ router.get('/overview/get/all/projects', passport.authenticate('jwt', { session:
             return res.json({success: true, projects:project});
         }
     });
+});
 
+router.post('/overview/work/change/task/status', passport.authenticate('jwt', { session:false }), (req, res, next) => {
+    let user = req.user;
+    Tasks.getTaskOwnerByTasktId(req.body._id, (err, userId) => {
+        if(err) return res.json({success: false, msg:'Something went wrong. Try again later'});
+        if(!userId) return res.json({success: false, msg:'You are not authorized to do this'});
+        if(userId){
+            if(userId._id == req.body._id){
+                Tasks.changeTaskStatus(req.body, (err, result) => {
+                    if(err) return res.json({success: false, msg:'Something went wrong while changing task status'});
+                    if(result) return res.json({success: true, msg:'Task status changed'});
+                });
+            }
+            else return res.json({success: false, msg:'You are not authorized to do this.'});
+        }
+    });
 });
 
 router.post('/overview/work/get/all/tasks', passport.authenticate('jwt', { session:false }), (req, res, next) => {
@@ -83,7 +99,10 @@ router.post('/overview/delete/project', passport.authenticate('jwt', { session:f
                     return res.json({success: false, msg:'Error, while deleting'});
                 }
                 if (response.ok){
-                    return res.json({success: true, msg:'Project deleted.'});
+                    Tasks.deleteAllTasksAsosiatedWithProject(projectId, (err, response) => {
+                        if(err) return res.json({success: false, msg:'Error, while deleting'});
+                        if (response) return res.json({success: true, msg:'Project deleted.'});
+                    });
                 }
             });
         }

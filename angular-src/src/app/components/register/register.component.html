@@ -3,19 +3,28 @@
   <form (submit)="onRegisterSubmit()">
     <div class="form-group">
       <label>Name</label>
-      <input type="text" [(ngModel)]="name" name="name" class="form-control"> 
+      <input type="text" [(ngModel)]="name" name="name" (change)="validateName(name)" class="form-control"> 
+      <small *ngIf="this.errors.name != '' " class="form-text text-muted">{{errors.name}}</small> 
     </div>
     <div class="form-group">
         <label>Username</label>
-        <input type="text" [(ngModel)]="username" name="username" class="form-control">
+        <input type="text" [(ngModel)]="username" name="username" (change)="validateUsername(username)" class="form-control">
+        <small *ngIf="this.errors.username != '' " class="form-text text-muted">{{errors.username}}</small> 
     </div>
     <div class="form-group">
         <label>Email</label>
-        <input type="text" [(ngModel)]="email" name="email" class="form-control">
+        <input type="text" [(ngModel)]="email" name="email" (change)="validateEmail(email)" class="form-control">
+        <small *ngIf="this.errors.email != '' " class="form-text text-muted">{{errors.email}}</small> 
     </div>
     <div class="form-group">
         <label>Password</label>
-        <input type="password" [(ngModel)]="password" name="password" class="form-control">
+        <input type="password" [(ngModel)]="password" name="password" (change)="validatePassword(password)" class="form-control">
+        <small *ngIf="this.errors.password != '' " class="form-text text-muted">{{errors.password}}</small> 
+    </div>
+    <div class="form-group">
+        <label>Repeat password</label>
+        <input type="password" [(ngModel)]="repeatPassword" (change)="validateRepeatPassword(password, repeatPassword)" name="repeatPassword" class="form-control">
+        <small *ngIf="this.errors.repeatPassword != '' " class="form-text text-muted">{{errors.repeatPassword}}</small> 
     </div>
         <input type="submit" class="btn btn-primary" value="Submit">
   </form>

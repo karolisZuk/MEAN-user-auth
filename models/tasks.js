@@ -62,3 +62,11 @@ module.exports.addTask = (newTask, callback) => {
  module.exports.getTaskOwnerByTaskId = (id, callback) => {
     Task.findById(id, 'taskOwner', callback);
  }
+
+ module.exports.changeTaskStatus = (request, callback) => {
+    Task.findOneAndUpdate({ _id:request._id},{taskStatus:request.newStatus}, callback);
+ }
+
+module.exports.deleteAllTasksAsosiatedWithProject = (projectId, callback) => {
+    Task.deleteMany({taskProjectCode: projectId}, callback);
+}

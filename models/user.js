@@ -32,6 +32,16 @@ module.exports.getUserByUsername = (username, callback) => {
     User.findOne(query, callback);
 }
 
+module.exports.checkIfEmailIsTaken = (email, callback)=>{
+    const query = {email: email};    
+    User.findOne(query, callback);
+}
+
+module.exports.checkIfUsernameIsTaken = (username, callback)=>{
+    const query = {username:username};
+    User.findOne(query, callback);
+}
+
 module.exports.addUser = (newUser, callback) => {
     bcrypt.genSalt(10, (err, salt)=>{
         bcrypt.hash(newUser.password, salt, (err, hash)=>{

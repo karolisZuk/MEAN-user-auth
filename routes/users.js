@@ -62,4 +62,22 @@ router.get('/profile', passport.authenticate('jwt', { session:false }), (req, re
     res.json({user: req.user});
 });
 
+router.post('/check/if/email/exists', (req, res, next) => {
+    User.checkIfEmailIsTaken(req.body.email, (err, result) => {
+        if(err) return  res.json({success:false, msg:'Something went wrong. Try again later.'});
+        else if(result) return res.json({success:false, msg:'This email is already registered.'});
+        else return res.json({success:true});
+    })
+});
+
+router.post('/check/if/username/exists', (req, res, next) => {
+    User.checkIfUsernameIsTaken(req.body.username, (err, result) => {
+        if(err) return  res.json({success:false, msg:'Something went wrong. Try again later.'});
+        else if(result) return res.json({success:false, msg:'This username is already taken.'});
+        else return res.json({success:true});
+    })
+});
+
+
+
 module.exports = router;

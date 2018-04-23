@@ -7,6 +7,7 @@ import { tokenNotExpired } from 'angular2-jwt';
 export class ProjectService {
   authToken: any;
   user: any;
+  selectedProject: any;
 
   constructor(private http: Http) { }
 
@@ -25,6 +26,16 @@ registerNewTask(task){
   headers.append('Content-type', 'application/json');
   headers.append('Authorization', this.authToken);
   return this.http.post('http://localhost:3000/dashboard/work/create-new-task', task, {headers:headers})
+  .map(res => res.json());
+}
+
+changeTaskStatus(task, newStatus){
+ let previousTaskState = task.taskStatus;
+ this.loadToken();
+ let headers = new Headers();
+  headers.append('Content-type', 'application/json');
+  headers.append('Authorization', this.authToken);
+  return this.http.post('http://localhost:3000/dashboard/overview/work/change/task/status', {...task, newStatus}, {headers:headers})
   .map(res => res.json());
 }
 

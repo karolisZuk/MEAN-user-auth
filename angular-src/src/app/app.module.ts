@@ -20,6 +20,9 @@ import { OverviewComponent } from './components/overview/overview.component';
 import { ProjectService } from './services/project.service';
 import { DisplayUserProjectsComponent } from './components/display-user-projects/display-user-projects.component';
 import { WorkComponent } from './components/work/work.component';
+import { DraggableDirective } from './directives/draggable.directive';
+import { DropTargetDirective } from './directives/drop-target.directive';
+import { DragService } from './services/drag.service';
 
 const appRoutes: Routes = [
   {path: '',component: HomeComponent},
@@ -27,8 +30,8 @@ const appRoutes: Routes = [
   {path: 'login',component: LoginComponent},
   {path: 'dashboard',component: DashboardComponent, canActivate:[AuthGuard]},
   {path: 'profile',component: ProfileComponent, canActivate:[AuthGuard]},
-  {path: 'dashboard/overview',component: OverviewComponent},
-  {path: 'dashboard/work',component: WorkComponent}
+  {path: 'dashboard/overview',component: OverviewComponent, canActivate:[AuthGuard]},
+  {path: 'dashboard/work',component: WorkComponent, canActivate:[AuthGuard]}
 
 ]
 
@@ -46,7 +49,9 @@ const appRoutes: Routes = [
     CreateNewProjectComponent,
     OverviewComponent,
     DisplayUserProjectsComponent,
-    WorkComponent
+    WorkComponent,
+    DraggableDirective,
+    DropTargetDirective
     ],
   //providers
   imports: [
@@ -57,7 +62,7 @@ const appRoutes: Routes = [
     FlashMessagesModule.forRoot()
   ],
   //services
-  providers: [ValidateService, AuthService, AuthGuard, ProjectService],
+  providers: [ValidateService, AuthService, AuthGuard, ProjectService, DragService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
