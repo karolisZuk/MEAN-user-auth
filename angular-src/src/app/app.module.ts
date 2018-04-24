@@ -23,6 +23,7 @@ import { WorkComponent } from './components/work/work.component';
 import { DraggableDirective } from './directives/draggable.directive';
 import { DropTargetDirective } from './directives/drop-target.directive';
 import { DragService } from './services/drag.service';
+import { WorkService } from './services/work.service';
 
 const appRoutes: Routes = [
   {path: '',component: HomeComponent},
@@ -62,7 +63,7 @@ const appRoutes: Routes = [
     FlashMessagesModule.forRoot()
   ],
   //services
-  providers: [ValidateService, AuthService, AuthGuard, ProjectService, DragService],
+  providers: [ValidateService, AuthService, AuthGuard, ProjectService, DragService, WorkService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

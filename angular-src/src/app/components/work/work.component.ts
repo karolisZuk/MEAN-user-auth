@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ProjectService } from '../../services/project.service';
 import { FlashMessagesService } from 'angular2-flash-messages';
 import * as _ from 'lodash';
+import { WorkService } from '../../services/work.service';
 
 @Component({
   selector: 'app-work',
@@ -15,6 +16,7 @@ export class WorkComponent implements OnInit {
   private pendingTasks:any;
   private inProgressTasks: any;
   private finishedTasks:any;
+  private workingTask: any;
 
   taskTitle: String;
   taskDescription: String;
@@ -22,13 +24,17 @@ export class WorkComponent implements OnInit {
 
   constructor(
     private projectService: ProjectService,
-    private flashMessage: FlashMessagesService
+    private flashMessage: FlashMessagesService,
+    private workService: WorkService
   ) { }
 
   ngOnInit() {
     this.getAllProjects();
     if(this.projectService.selectedProject){
       this.getAllTasks(this.projectService.selectedProject._id);
+      if(this.workService && this.workService.isWorking){
+        console.log(this.workService.getWorkingTask());
+      }
     }
   }
 
@@ -54,7 +60,6 @@ export class WorkComponent implements OnInit {
    }
     });
   }
-
 
   dropToProgress(data: any){
     let previousStatus = data.taskStatus;
@@ -121,6 +126,10 @@ export class WorkComponent implements OnInit {
       this.getAllTasks(this.projectService.selectedProject._id);
      }
     });
+  }
+
+  editTask(task){
+    console.log(task);
   }
 
   filterTasksByStatus(tasks, status){

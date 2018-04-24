@@ -39,13 +39,16 @@
   <div class="col-md-4">
     <h4 class="text-center column-title">Pending tasks</h4>
       <ul class="list-group task-list" myDropTarget (myDrop)="dropToPending($event)"> 
-        <li class="list-group-item" *ngFor="let task of pendingTasks" ng-if="pendingTasks" [myDraggable]="{data: task}">
+        <li  *ngFor="let task of pendingTasks" ng-if="pendingTasks" [ngClass]="task == workService.workingTask ? 'list-group-item marked':'list-group-item'" [myDraggable]="{data: task}">
           <div class="row">
             <div class="col-md-9">
                 <h4> {{task.taskPriority}} </h4>{{task.taskName}} <br><small>{{task.taskDescription}}</small>
             </div>
             <div class="col-md-3">
-                <a (click)="deleteTask(task._id)"><i class="fas fa-trash-alt"></i></a>
+                <a (click)="workService.startWork(task)" *ngIf="!workService.isWorking" class="icons"><i class="far fa-play-circle"></i></a>
+                <a (click)="workService.endWork()" *ngIf="workService.isWorking && workService.workingTask == task" class="icons"><i class="far fa-pause-circle"></i></a>
+                <a (click)="editTask(task)" class="icons"><i class="far fa-edit"></i></a>
+                <a (click)="deleteTask(task._id)" class="icons"><i class="fas fa-trash-alt"></i></a>
               </div>
           </div>
         </li>
@@ -54,13 +57,16 @@
   <div class="col-md-4">
       <h4 class="text-center column-title">Tasks in progress</h4>
       <ul class="list-group task-list" myDropTarget (myDrop)="dropToProgress($event)"> 
-      <li class="list-group-item" ng-if="inProgressTasks" *ngFor="let task of inProgressTasks" [myDraggable]="{data: task}">
+      <li [ngClass]="(workService.getWorkingTask() == task) ? 'list-group-item marked':'list-group-item'" ng-if="inProgressTasks" *ngFor="let task of inProgressTasks" [myDraggable]="{data: task}">
           <div class="row">
               <div class="col-md-9">
                   <h4> {{task.taskPriority}} </h4>{{task.taskName}} <br><small>{{task.taskDescription}}</small>
               </div>
               <div class="col-md-3">
-                  <a (click)="deleteTask(task._id)"><i class="fas fa-trash-alt"></i></a>
+                    <a (click)="workService.startWork(task)" *ngIf="!workService.isWorking" class="icons"><i class="far fa-play-circle"></i></a>
+                    <a (click)="workService.endWork()" *ngIf="workService.isWorking && workService.workingTask == task" class="icons"><i class="far fa-pause-circle"></i></a>
+                    <a (click)="editTask(task)" class="icons"><i class="far fa-edit"></i></a>
+                  <a (click)="deleteTask(task._id)" class="icons"><i class="fas fa-trash-alt"></i></a>
                 </div>
             </div>
       </li>
@@ -69,13 +75,16 @@
     <div class="col-md-4">
         <h4 class="text-center column-title">Finished tasks</h4>
         <ul class="list-group task-list" myDropTarget (myDrop)="dropToFinished($event)"> 
-        <li class="list-group-item" ng-if="finishedTasks" *ngFor="let task of finishedTasks" [myDraggable]="{data: task}">
+        <li  ng-if="finishedTasks" *ngFor="let task of finishedTasks" [ngClass]="(workService.getWorkingTask() == task) ? 'list-group-item marked':'list-group-item'" [myDraggable]="{data: task}">
             <div class="row">
                 <div class="col-md-9">
                     <h4> {{task.taskPriority}} </h4>{{task.taskName}} <br><small>{{task.taskDescription}}</small>
                 </div>
                 <div class="col-md-3">
-                    <a (click)="deleteTask(task._id)"><i class="fas fa-trash-alt"></i></a>
+                    <a (click)="workService.startWork(task)" *ngIf="!workService.isWorking" class="icons"><i class="far fa-play-circle"></i></a>
+                        <a (click)="workService.endWork()" *ngIf="workService.isWorking && workService.workingTask == task" class="icons"><i class="far fa-pause-circle"></i></a>
+                        <a (click)="editTask(task)" class="icons"><i class="far fa-edit"></i></a>
+                    <a (click)="deleteTask(task._id)" class="icons"><i class="fas fa-trash-alt"></i></a>
                   </div>
               </div>
         </li>

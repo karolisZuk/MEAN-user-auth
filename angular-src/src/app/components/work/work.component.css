@@ -23,3 +23,13 @@ ul {height: 100%;}
 .column-title {
     margin-top:10px;
 }
+
+.icons {
+    font-size: 1.9em;
+    margin-left:2px;
+    cursor: pointer;
+}
+
+.marked {
+    background-color:#b2fab4;
+}
